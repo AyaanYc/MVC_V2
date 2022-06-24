@@ -19,13 +19,13 @@ class Application{
             exit();
         }
 
-        if(!in_array($controller, static::$modelList)) {
+        if(!in_array($controller, static::$modelList)) {//1차주소값이 modelList배열에 없으면 true
             $modelName = 'application\models\\' . $controller . 'model';
-            static::$modelList[$controller] = new $modelName();
+            static::$modelList[$controller] = new $modelName();//db_connect
         }
 
         $controllerName = 'application\controllers\\' . $controller . 'controller';                
-        $model = static::$modelList[$controller];
-        new $controllerName($action, $model);
+        $model = static::$modelList[$controller];//db_connect
+        new $controllerName($action, $model);//1차주소값controller(2차주소값,디비커넥트)
     }
 }
