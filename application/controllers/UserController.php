@@ -8,9 +8,10 @@ class UserController extends Controller {
                 return "user/signin.php";
             case _POST:
                 $email = $_POST['email'];
-                $pw = $_POST["pw"];
+                $pw = $_POST['pw'];
+            
                 $param = [
-                    "email" => $_POST["email"]
+                    "email" => $_POST['email']
                 ];
                 $dbUser = $this->model->selUser($param);
                 if(!$dbUser || !password_verify($pw, $dbUser->pw)) {                                                        
