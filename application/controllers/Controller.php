@@ -17,7 +17,7 @@ class Controller {
             }
         }
 
-        $this->model = $model;
+        $this->model = $model;//쿼리객체(UserModel or FeedModel)
         $view = $this->$action();
         if(empty($view)) {
             echo "Controller 에러 발생";
