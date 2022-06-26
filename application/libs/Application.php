@@ -10,7 +10,7 @@ class Application{
     private static $modelList = [];
 
     public function __construct() {        
-        $urlPaths = getUrlPaths();
+        $urlPaths = getUrlPaths();//1,2차주소값 배열
         $controller = isset($urlPaths[0]) && $urlPaths[0] != '' ? $urlPaths[0] : 'board';
         $action = isset($urlPaths[1]) && $urlPaths[1] != '' ? $urlPaths[1] : 'index';
 
@@ -20,12 +20,12 @@ class Application{
         }
 
         if(!in_array($controller, static::$modelList)) {//1차주소값이 modelList배열에 없으면 true
-            $modelName = 'application\models\\' . $controller . 'model';
-            static::$modelList[$controller] = new $modelName();//db_connect
+            $modelName = 'application\models\\' . $controller . 'model';//쿼리문
+            static::$modelList[$controller] = new $modelName();//$modelList[1차주소값]= 1차주소값Model객체
         }
 
         $controllerName = 'application\controllers\\' . $controller . 'controller';                
-        $model = static::$modelList[$controller];//db_connect
+        $model = static::$modelList[$controller];//쿼리객체
         new $controllerName($action, $model);//1차주소값controller(2차주소값,디비커넥트)
     }
 }

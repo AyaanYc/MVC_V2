@@ -9,6 +9,7 @@ class UserController extends Controller {
             case _POST:
                 $email = $_POST['email'];
                 $pw = $_POST['pw'];
+            
                 $param = [
                     "email" => $_POST['email']
                 ];
