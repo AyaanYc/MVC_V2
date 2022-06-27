@@ -27,7 +27,9 @@
                     <!-- 프로필 이미지 -->
                     <div class="d-inline-flex dropdown">
                         <a href="#" role="button" id="navDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" class="header_profile">
-                            프로필이미지
+                            <div class="circleimg h30 w30">
+                                <img src="/static/img/profile/<?=getMainImgSrc()?>" onerror="this.src='/static/img/profile/defaultProfileimg.png';this.onerror=null;">
+                            </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelleaby="navDropdownMenuLink">
                             <li>
@@ -45,3 +47,21 @@
         </div>
     </div>
 </header>
+
+<!-- New Feed Create Modal +버튼 -->
+<div class="modal fade" id="newFeedModal" tabindex="-1" aria-labelleaby="newFeedModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content" id="newFeedModalContent">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newFeedModalLabel">새 게시물 만들기</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-laber="Close"></button>
+            </div>
+            <div class="modal-body" id="id-modal-body">
+
+            </div>
+        </div>
+        <form class="d-none">
+            <input type="file" accept="image/*" name="imgs" multiple>
+        </form>
+    </div>
+</div>
