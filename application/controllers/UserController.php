@@ -8,15 +8,14 @@ class UserController extends Controller {
                 return "user/signin.php";
             case _POST:
                 $email = $_POST['email'];
-                $pw = $_POST['pw'];
-            
-                $param = [
-                    "email" => $_POST['email']
-                ];
+                $pw = $_POST['pw'];           
+                $param = ["email" => $_POST['email']];
                 $dbUser = $this->model->selUser($param);
                 if(!$dbUser || !password_verify($pw, $dbUser->pw)) {                                                        
                     return "redirect:signin?email={$email}&err";
                 }
+                $dbUser->pw = null;
+                $dbUser->regdt = null;
                 $this->flash(_LOGINUSER, $dbUser);
                 return "redirect:/feed/index";
         }
