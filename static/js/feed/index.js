@@ -32,6 +32,9 @@
                 imgElem.src = reader.result;//img태그.src에 이미지를 넣는다.
                 };
 
+                // $btn_close = document.querySelector(".btn-close");
+                // $btn_close.addEventListener("click", function())
+
                 const shareBtnElem = body.querySelector('button');//공유하기 버튼
                 shareBtnElem.addEventListener('click', function() {//fetch로 이미지를 백엔드에 전송
                     const files = frmElem.imgs.files;//이미지파일
@@ -48,12 +51,12 @@
                         body: fData
                     }).then(res => res.json())
                         .then(myJson => {
+                            console.log(myJson);
                             const closeBtn = modal.querySelector('.btn-close');//btn.close를 찾고 클릭함(x버튼)
                             closeBtn.click();
-
-                            if(feedObj && myJson.result) { // 객체와 객체가 있다면
-                                feedObj.refreshList(); //메소드호출(현재페이지를 1로바꾸고 공간초기화, 새로추가된것을 넣음 common_feed.js)
-                            }
+                            // if(feedObj && myJson.result) { // 객체와 객체가 있다면
+                            //     feedObj.refreshList(); //메소드호출(현재페이지를 1로바꾸고 공간초기화, 새로추가된것을 넣음 common_feed.js)
+                            // }
                         });
                 });
             }
