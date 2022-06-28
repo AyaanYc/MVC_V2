@@ -6,7 +6,7 @@
         const frmElem = modal.querySelector('form');
 
         //이미지 값이 변하면
-            frmElem.imgs.addEventListener('change', function(e) { //input name=imgs접근 type=file
+        frmElem.imgs.addEventListener('change', function(e) { //input name=imgs접근 type=file
 
             if(e.target.files.length > 0) { //선택한 파일 갯수 e.target=input(name=imgs)
                 body.innerHTML = `
@@ -38,17 +38,16 @@
 
                     const fData = new FormData();//creater element('form')
                     for(let i=0; i<files.length; i++) {
-                        fData.append('imgs', files[i]);//fData안에 이미지를 배열로 집어넣는다.
+                        fData.append('imgs[]', files[i]);//fData안에 이미지를 배열로 집어넣는다.
                     }
                     fData.append('ctnt', body.querySelector('textarea').value);//문구에 들어간 문자열
                     fData.append('location', body.querySelector('input[type=text]').value);//위치에들어간 문자열
 
-                    fetch('/feed/reg', {// post방식으로 body에 fData를 박아서
+                    fetch('/feed/rest', {// post방식으로 body에 fData를 박아서
                         method: 'post',
                         body: fData
                     }).then(res => res.json())
                         .then(myJson => {
-
                             const closeBtn = modal.querySelector('.btn-close');//btn.close를 찾고 클릭함(x버튼)
                             closeBtn.click();
 
