@@ -113,9 +113,7 @@
             divContainer.className = 'item mt-3 mb-3 list';
 
             const divTop = document.createElement('div');
-            const divMid = document.createElement('div');
             divContainer.appendChild(divTop);
-            divContainer.appendChild(divMid);
             const regDtInfo = getDateTimeInfo(item.regdt);
             divTop.className = 'd-flex flex-row ps-3 pe-3';
             const writerImg = `<img src='/static/img/profile/${item.iuser}/${item.mainimg}' 
@@ -130,11 +128,29 @@
                 </div>   
             `;
 
-            divMid.className = 'd-flex flex-row ps-5 pe-1 pb-3';
-            // const feedImg = `<img src='/static/img/feed/${item.ifeed}/${item.img}>`;
-            divMid.innerHTML = `
-                <div class="d-flex flex-column justify-content-center">${item.ctnt}</div>
-                `;
+            const divImgSwiper = document.createElement('div');
+            divContainer.appendChild(divImgSwiper);
+            divImgSwiper.className = 'swiper item_img';
+            divImgSwiper.innerHTML = `
+                <div class="swiper-wrapper"></div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            `;
+            const divSwiperWrapper = divImgSwiper.querySelector('.swiper-wrapper');
+            console.log(divSwiperWrapper);
+            // imgList forEach 돌릴예정
+            const imgObj = item.imgList[0];
+            const divSwiperSlide = document.createElement('div');
+            divSwiperWrapper.appendChild(divSwiperSlide);
+            divSwiperSlide.classList.add('swiper-slide');
+
+            const img = document.createElement('img');
+            divSwiperSlide.appendChild(img);
+            img.className = 'w614';
+            console.log(item.ifeed);
+            img.src = `/static/img/feed/${item.ifeed}/${imgObj.img}`;
+            
             return divContainer;
         },
 
