@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= isset($this->title) ? $this->title : _SERVICE_NM ?></title>
     <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/feed/index.css">
     <?php 
         if(isset($this->css)) {
             foreach($this->css as $item) {

@@ -110,24 +110,29 @@
         makeFeedItem: function(item) {//item을 만들어서 return
             console.log(item);
             const divContainer = document.createElement("div");
-            divContainer.className = 'item mt-3 mb-3';
+            divContainer.className = 'item mt-3 mb-3 list';
 
             const divTop = document.createElement('div');
+            const divMid = document.createElement('div');
             divContainer.appendChild(divTop);
-
+            divContainer.appendChild(divMid);
             const regDtInfo = getDateTimeInfo(item.regdt);
             divTop.className = 'd-flex flex-row ps-3 pe-3';
             const writerImg = `<img src='/static/img/profile/${item.iuser}/${item.mainimg}' 
                 onerror='this.error=null;this.src="/static/img/profile/defaultProfileimg.png"'>`;
-
             divTop.innerHTML = `
-                <div class="d-flex flex-column justify-content-center">${writerImg}</div>
+                <div class="d-flex flex-column justify-content-center">
+                    <div class="circleimg h40 w40">${writerImg}</div>
+                </div>
                 <div class="p-3 flex-grow-1">
                     <div><span class="pointer" onclick="moveTopProfile(${item.iuser});">${item.writer}</span> - ${regDtInfo}</div>
                     <div>${item.location === null ? '' : item.location}</div>
                 </div>   
             `;
 
+            divMid.className = 'd-flex flex-row ps-5 pe-1 pb-3';
+            divMid.innerHTML = `
+                <div class="d-flex flex-column justify-content-center">${item.ctnt}</div>`;
             return divContainer;
         },
 
