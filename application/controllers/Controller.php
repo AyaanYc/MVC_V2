@@ -22,7 +22,7 @@ class Controller {
 
         $this->model = $model;//쿼리객체(UserModel or FeedModel)
         $view = $this->$action();
-        if(empty($view)) {
+        if(empty($view) && gettype($view) === "string") {//배열에 아무것도 안들어있어도 에러발생시켜서 gettype메소드추가
             echo "Controller 에러 발생";
             exit();
         }

@@ -74,4 +74,42 @@
             body.appendChild(selFromComBtn);//버튼추가
         });
     }
+
+    const feedObj = {
+        limit: 20,
+        itemLength: 0,
+        currentPage: 1,
+        loadingElem: document.querySelector('.loading'),
+
+        getFeedList: function() {
+            this.showLoading();            
+            const param = {
+                page: this.currentPage++
+            }
+            fetch('/feed/rest' + encodeQueryString(param))
+            .then(res => res.json())
+            .then(list => {
+                console.log(list);
+                this.makeFeedList(list);
+            })
+            .catch(e => {
+                console.error(e);
+                this.hideLoading();
+            });
+        },
+        makeFeedList: function(list) {
+            
+        },
+        makeFeedItem: function(item) {
+
+        },
+
+        showLoading: function() { this.loadingElem.classList.remove('d-none'); },
+        hideLoading: function() { this.loadingElem.classList.add('d-none'); }
+
+    }
+    feedObj.getFeedList();
+
+
+
 })();
