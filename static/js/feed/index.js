@@ -80,6 +80,7 @@
         itemLength: 0,
         currentPage: 1,
         loadingElem: document.querySelector('.loading'),
+        containerElem: document.querySelector('#item_container'),
 
         getFeedList: function() {
             this.showLoading();            
@@ -97,11 +98,37 @@
                 this.hideLoading();
             });
         },
-        makeFeedList: function(list) {
-            
+        makeFeedList: function(list) {//item을 받아서 리스트(div)에추가
+            if(list.length !== 0) {
+                list.forEach(item => {
+                    const divItem = this.makeFeedItem(item);
+                    this.containerElem.appendChild(divItem);
+                });
+            }
+            this.hideLoading();
         },
-        makeFeedItem: function(item) {
+        makeFeedItem: function(item) {//item을 만들어서 return
+            console.log(item);
+            const divContainer = document.createElement("div");
+            divContainer.className = 'item mt-3 mb-3';
 
+            const divTop = document.createElement('div');
+            divContainer.appendChild(divTop);
+
+            const regDtInfo = getDateTimeInfo(item.regdt);
+            divTop.className = 'd-flex flex-row ps-3 pe-3';
+            const writerImg = `<img src='/static/img/profile/${item.iuser}/${item.mainimg}' 
+                onerror='this.error=null;this.src="/static/img/profile/defaultProfileimg.png"'>`;
+
+            divTop.innerHTML = `
+                <div class="d-flex flex-column justify-content-center">${writerImg}</div>
+                <div class="p-3 flex-grow-1">
+                    <div><span class="pointer" onclick="moveTopProfile(${item.iuser});">${item.writer}</span> - ${regDtInfo}</div>
+                    <div>${item.location === null ? '' : item.location}</div>
+                </div>   
+            `;
+
+            return divContainer;
         },
 
         showLoading: function() { this.loadingElem.classList.remove('d-none'); },

@@ -3,7 +3,7 @@
         <div class="d-flex flex-column flex-md-row align-items-center">
             <!-- home -->
             <div class="d-inline-flex flex-grow-1 flex-shrink-0">
-                <a href="/feed/index">Home</a>
+                <a href="/feed/index"><img src="/static/svg/Instagram_logo.svg" class="w100"></a>
             </div>
             <!-- main -->
             <div class="d-inline-flex flex-grow-1 flex-shrink-0">

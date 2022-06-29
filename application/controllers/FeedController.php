@@ -43,7 +43,6 @@ class FeedController extends Controller {
                 $ifeed = $this->model->insFeed($param);//한번만 넣어주면되기때문에 따로작성
                 $paramImg = [ "ifeed" => $ifeed ];
                 foreach($_FILES["imgs"]["name"] as $key => $originFileNm) {
-
                     $saveDirectory = _IMG_PATH . "/feed/" . $ifeed; //static/img/feed/ifeed
                     if(!is_dir($saveDirectory)) {
                         mkdir($saveDirectory, 0777, true);
