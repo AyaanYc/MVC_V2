@@ -1,6 +1,6 @@
-<div>
-    <div class="d-flex flex-row justify-content-center">
-        <div calss="w614">
+<div class="d-flex flex-column align-items-center">
+    <div class="size_box_100"></div>
+        <div class="w614">
             <div id="item_container" class="w614"></div>
         </div>
     </div>

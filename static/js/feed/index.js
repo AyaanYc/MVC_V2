@@ -131,8 +131,10 @@
             `;
 
             divMid.className = 'd-flex flex-row ps-5 pe-1 pb-3';
+            // const feedImg = `<img src='/static/img/feed/${item.ifeed}/${item.img}>`;
             divMid.innerHTML = `
-                <div class="d-flex flex-column justify-content-center">${item.ctnt}</div>`;
+                <div class="d-flex flex-column justify-content-center">${item.ctnt}</div>
+                `;
             return divContainer;
         },
 
