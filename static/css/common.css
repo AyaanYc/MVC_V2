@@ -37,6 +37,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 .pointer { cursor: pointer; }
 .rem1_2 { font-size: 1.2rem; }
+.rem1_5 { font-size: 1.5rem; }
 .over_y_a { overflow-y: auto; }
 
 .w24 { width: 24px; }

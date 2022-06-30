@@ -79,6 +79,7 @@
         limit: 20,
         itemLength: 0,
         currentPage: 1,
+        swiper: null,
         loadingElem: document.querySelector('.loading'),
         containerElem: document.querySelector('#item_container'),
 
@@ -105,6 +106,19 @@
                     this.containerElem.appendChild(divItem);
                 });
             }
+
+            if(this.swiper !==null) { this.swiper = null; }
+            this.swiper = new Swiper('.swiper', {
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev'
+                },
+                pagination: { el: '.swiper-pagination' },
+                allowTouchMove: false,
+                direction: 'horizontal',
+                loop: false
+            });
+
             this.hideLoading();
         },
         makeFeedItem: function(item) {//item을 만들어서 return
@@ -132,7 +146,7 @@
             divContainer.appendChild(divImgSwiper);
             divImgSwiper.className = 'swiper item_img';
             divImgSwiper.innerHTML = `
-                <div class="swiper-wrapper"></div>
+                <div class="swiper-wrapper align-items-center"></div>
                 <div class="swiper-pagination"></div>
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
@@ -148,7 +162,16 @@
                 divSwiperSlide.appendChild(img);
                 img.className = 'w100p_mw614';
                 img.src = `/static/img/feed/${item.ifeed}/${imgObj.img}`;
-            })
+            });
+
+            const divBtns = document.createElement('div');
+            divContainer.appendChild(divBtns);
+            divBtns.className = 'favCont p-2 d-flex flex-row';
+            
+            const heartIcon = document.createElement('i');
+            divBtns.appendChild(heartIcon);
+            heartIcon.className = 'fa-heart pointer rem1_5 me-3';
+            heartIcon.classList.add(item.isFav === 1 ? 'fas' : 'far');
 
             return divContainer;
         },
