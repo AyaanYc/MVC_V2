@@ -44,9 +44,12 @@ class UserController extends Controller {
     }
 
     public function feedwin() {
-        $this->addAttribute(_JS, ["user/feedwin", "https://unpkg.com/swiper@8/swiper-bundle.min.js"]);
-        $this->addAttribute(_CSS, ["user/feedwin", "https://unpkg.com/swiper@8/swiper-bundle.min.css"]);
+        $iuser = isset($_GET["iuser"]) ? intval($_GET["iuser"]) : 0;
+        $param = [ "iuser" => $iuser ];
+        $this->addAttribute(_DATA, $this->model->selUserByIuser($param));
+        $this->addAttribute(_JS, ["user/feedwin", "https://unpkg.com/swiper@8/swiper-bundle.min.js"]);        
+        $this->addAttribute(_CSS, ["user/feedwin", "https://unpkg.com/swiper@8/swiper-bundle.min.css"]);        
         $this->addAttribute(_MAIN, $this->getView("user/feedwin.php"));
-        return "template/t1.php";
+        return "template/t1.php"; 
     }
 }

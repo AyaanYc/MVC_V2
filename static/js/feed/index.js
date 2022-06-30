@@ -24,7 +24,7 @@
                     </div>
                 `;
                 const imgElem = body.querySelector('#id-img');
-
+                
                 const imgSource = e.target.files[0];//선택한사진
                 const reader = new FileReader();
                 reader.readAsDataURL(imgSource);//내컴퓨터에있는 이미지의 위치값
@@ -32,8 +32,6 @@
                 imgElem.src = reader.result;//img태그.src에 이미지를 넣는다.
                 };
 
-                // $btn_close = document.querySelector(".btn-close");
-                // $btn_close.addEventListener("click", function())
 
                 const shareBtnElem = body.querySelector('button');//공유하기 버튼
                 shareBtnElem.addEventListener('click', function() {//fetch로 이미지를 백엔드에 전송
@@ -140,7 +138,7 @@
                 onerror='this.error=null;this.src="/static/img/profile/defaultProfileimg.png"'>`;
             divTop.innerHTML = `
                 <div class="d-flex flex-column justify-content-center">
-                    <div class="circleimg h40 w40 feedWin">${writerImg}</div>
+                    <div class="circleimg h40 w40 pointer feedWin">${writerImg}</div>
                 </div>
                 <div class="p-3 flex-grow-1">
                     <div><span class="pointer feedWin">${item.writer}</span> - ${regDtInfo}</div>
@@ -171,18 +169,25 @@
                 const divSwiperSlide = document.createElement('div');
                 divSwiperWrapper.appendChild(divSwiperSlide);
                 divSwiperSlide.classList.add('swiper-slide');
-
+                
                 const img = document.createElement('img');
                 divSwiperSlide.appendChild(img);
                 img.className = 'w100p_mw614 pointer';
                 img.src = `/static/img/feed/${item.ifeed}/${imgObj.img}`;
                 img.addEventListener('click', function() {
-                    const lightbox = document.querySelector('#lightbox');
-                    // lightbox.style.display = 'flex';
-                    const lightboxImage = document.querySelector('#lightboxImage');
-                    lightboxImage.setAttribute('src', `/static/img/feed/${item.ifeed}/${imgObj.img}`);
+                    const imgbox = document.createElement('div');
+                    imgbox.className = "modal-img pointer d-flex justify-content-center align-items-center";
+                    imgbox.innerHTML = `
+                        <div class="modal-dialog">
+                            <img class="w300" src=${img.src}>
+                        </div>`
+                        imgbox.addEventListener("click",()=>{
+                            imgbox.remove();
+                        })
+                    const main = document.querySelector('main');
+                    main.appendChild(imgbox);
                 })
-            });
+                });
 
             //좋아요아이콘, dm 담을 상자
             const divBtns = document.createElement('div');

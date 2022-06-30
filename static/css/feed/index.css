@@ -6,16 +6,5 @@ main {
 .item_container_parent { width: 100%; max-width: 614px; } */
 .fas { color: red}
 .w100p_mw614 { width: 100%; max-width:  614px; }
-.size_box_100 { position: relative; height: 100px; }
+
 #item_container > .item { border: 1px solid #dfdfdf; border-radius: 8px; }
-#lightbox { 
-    height: 100%; 
-    width: 100%;
-    background-color: #00000066; 
-    display: none; 
-    justify-content: center; 
-    align-items: center;
-    position: fixed;
-    left: 0;
-    top: 0;
-}
