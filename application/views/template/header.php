@@ -9,9 +9,6 @@
                 </div>
 
                 <div class="d-inline-flex flex-grow-1 flex-shrink-1">
-                </div>
-
-                <div class="d-inline-flex flex-grow-1 flex-shrink-0">
                     <nav class="d-flex flex-grow-1 flex-row justify-content-end">
                         <div class="d-inline-flex me-3">
                             <a href="#" id="btnNewFeedModal" data-bs-toggle="modal" data-bs-target="#newFeedModal">
