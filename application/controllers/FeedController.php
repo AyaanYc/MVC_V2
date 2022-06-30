@@ -77,22 +77,24 @@ class FeedController extends Controller {
                 return $list;
         }
     }
-    public function fav() {
+    public function fav()
+    {
         $urlPaths = getUrlPaths();
-        if(!isset($urlPaths[2])) {
+        if (!isset($urlPaths[2])) {
             exit();
         }
-        $param = [//임의의값넣어서확인
-            "ifeed" => intval($urlPaths[2]),
-            "iuser" => 1
+
+        $param = [
+            'ifeed' => intval($urlPaths[2]),
+            'iuser' => getIuser(),
         ];
-        switch(getMethod()) {
+        switch (getMethod()) {
             case _POST:
-                $this->model->insFeedFav($param);
-                return [_RESULT => 1];
+                $result = $this->model->insFeedFav($param);
+                return [_RESULT => $result];
             case _DELETE:
-                $this->model->delFeedFav($param);
-                return [_RESULT => 1];
+                $result = $this->model->delFeedFav($param);
+                return [_RESULT => $result];
         }
     }
 }

@@ -75,6 +75,10 @@
         });
     }
 
+    function moveToFeedWin(iuser) {
+        location.href = `/user/feedwin?iuser=${iuser}`;
+    }
+
     const feedObj = {
         limit: 20,
         itemLength: 0,
@@ -123,9 +127,11 @@
         },
         makeFeedItem: function(item) {//item을 만들어서 return
             console.log(item);
+            //리스트부모
             const divContainer = document.createElement("div");
             divContainer.className = 'item mt-3 mb-3 list';
 
+            //리스트헤더
             const divTop = document.createElement('div');
             divContainer.appendChild(divTop);
             const regDtInfo = getDateTimeInfo(item.regdt);
@@ -134,14 +140,22 @@
                 onerror='this.error=null;this.src="/static/img/profile/defaultProfileimg.png"'>`;
             divTop.innerHTML = `
                 <div class="d-flex flex-column justify-content-center">
-                    <div class="circleimg h40 w40">${writerImg}</div>
+                    <div class="circleimg h40 w40 feedWin">${writerImg}</div>
                 </div>
                 <div class="p-3 flex-grow-1">
-                    <div><span class="pointer" onclick="moveTopProfile(${item.iuser});">${item.writer}</span> - ${regDtInfo}</div>
+                    <div><span class="pointer feedWin">${item.writer}</span> - ${regDtInfo}</div>
                     <div>${item.location === null ? '' : item.location}</div>
                 </div>   
             `;
 
+            const feedwinList = divTop.querySelectorAll('.feedWin');
+            feedwinList.forEach(el => {
+                el.addEventListener('click', () => {
+                    moveToFeedWin(item.iuser);
+                });
+            });
+            
+            // 이미지리스트
             const divImgSwiper = document.createElement('div');
             divContainer.appendChild(divImgSwiper);
             divImgSwiper.className = 'swiper item_img';
@@ -152,7 +166,7 @@
                 <div class="swiper-button-next"></div>
             `;
             const divSwiperWrapper = divImgSwiper.querySelector('.swiper-wrapper');
-            // imgList forEach 돌릴예정
+            
             item.imgList.forEach(function(imgObj) {
                 const divSwiperSlide = document.createElement('div');
                 divSwiperWrapper.appendChild(divSwiperSlide);
@@ -160,8 +174,14 @@
 
                 const img = document.createElement('img');
                 divSwiperSlide.appendChild(img);
-                img.className = 'w100p_mw614';
+                img.className = 'w100p_mw614 pointer';
                 img.src = `/static/img/feed/${item.ifeed}/${imgObj.img}`;
+                img.addEventListener('click', function() {
+                    const lightbox = document.querySelector('#lightbox');
+                    // lightbox.style.display = 'flex';
+                    const lightboxImage = document.querySelector('#lightboxImage');
+                    lightboxImage.setAttribute('src', `/static/img/feed/${item.ifeed}/${imgObj.img}`);
+                })
             });
 
             //좋아요아이콘, dm 담을 상자
@@ -174,6 +194,30 @@
             divBtns.appendChild(heartIcon);
             heartIcon.className = 'fa-solid fa-heart pointer rem1_5 me-3';
             heartIcon.classList.add(item.isFav === 1 ? 'fas' : 'far');
+            heartIcon.addEventListener('click', e => {
+                let method = 'POST';
+                if(item.isFav === 1) { //delete (1은 0으로 바꿔줘야 함)
+                    method = 'DELETE';
+                }
+
+                fetch(`/feed/fav/${item.ifeed}` , {
+                    'method' : method,
+                }).then(res => res.json())
+                .then(res => {
+                    if(res.result) {
+                        item.isFav = 1 - item.isFav;// 0>1, 1>0
+                        if(item.isFav === 0) { // 좋아요 취소
+                            heartIcon.classList.remove('fas');
+                            heartIcon.classList.add('far');
+                        } else { // 좋아요 처리
+                            heartIcon.classList.remove('far');
+                            heartIcon.classList.add('fas');
+                        }
+                    } else {
+                        alert('좋아요를 할 수 없습니다.');
+                    }
+                });
+            });
 
             //dm
             const divDm = document.createElement('div');

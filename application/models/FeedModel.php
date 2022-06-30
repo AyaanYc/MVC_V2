@@ -69,25 +69,27 @@ class FeedModel extends Model {
     }
 
     //-----------------------------------Fav----------------------------//
-    public function insFeedFav(&$param) {
-        $sql = "INSERT INTO t_feed_fav
-        (ifeed, iuser)
-        VALUES
-        (:ifeed, :iuser)";
+    public function insFeedFav(&$param)
+    {
+        $sql = "INSERT into t_feed_fav 
+                (ifeed , iuser) 
+                values
+                (:ifeed , :iuser)";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(":ifeed", $param["ifeed"]);
-        $stmt->bindValue(":iuser", $param["iuser"]);
+        $stmt->bindValue(':ifeed', $param['ifeed']);
+        $stmt->bindValue(':iuser', $param['iuser']);
         $stmt->execute();
-        return intval($this->pdo->lastInsertId());   //pk값이들어감 
+        return $stmt->rowCount();
     }
 
-    public function delFeedFav(&$param) {
-        $sql = "DELETE FROM t_feed_fav
-                WHERE ifeed = :ifeed
-                AND iuser = :iuser";
+    public function delFeedFav(&$param)
+    {
+        $sql = "DELETE from t_feed_fav 
+                where ifeed = :ifeed and iuser = :iuser";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(":ifeed", $param["ifeed"]);
-        $stmt->bindValue(":iuser", $param["iuser"]);
-        return $stmt->execute();
+        $stmt->bindValue(':ifeed', $param['ifeed']);
+        $stmt->bindValue(':iuser', $param['iuser']);
+        $stmt->execute();
+        return $stmt->rowCount();
     }
 }   
