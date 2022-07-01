@@ -10,15 +10,25 @@
                     // print_r($this->data);
                     ?>
                 </div>
-            <div class="flex-grow-1 d-flex flex-column justify-content-evenly">
+            <div class="flex-grow-1 d-flex flex-column justify-content-evenly ps-3">
                 <div><?=$this->data->email?></div>
                 <div class="d-flex flex-row">
-                    <div class="flex-grow1">게시물 <span>18</span></div>
-                    <div class="flex-grow1">팔로워 <span>43345</span></div>
-                    <div class="flex-grow1">팔로우 <span>235</span></div>
+                    <div class="flex-grow1 me-3">게시물 <span class="bold"><?=$this->data->feedcnt?></span></div>
+                    <div class="flex-grow1 me-3">팔로워 <span class="bold">4M</span></div>
+                    <div class="flex-grow1">팔로우 <span class="bold">235</span></div>
                 </div>
                 <div class="bold"><?=$this->data->nm?></div>
                 <div><?=$this->data->cmt?></div>
+            </div>
+            <div>
+                <?php
+                    if($this->data->meyou === 1){?>
+                        <button>팔로우취소</button>
+                    <?php } if($this->data->meyou === 0 && $this->data->youme === 1) { ?>
+                        <button>맞팔로우</button>
+                    <?php } if($this->data->meyou === 0 && $this->data->youme === 0) { ?>
+                        <button class="follow">팔로우</button>
+                <?php } ?>
             </div>
         </div>
     </div>

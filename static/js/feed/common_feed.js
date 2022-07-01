@@ -40,7 +40,7 @@ const feedObj = {
         const regDtInfo = getDateTimeInfo(item.regdt);
         divTop.className = 'd-flex flex-row ps-3 pe-3';
         const writerImg = `<img src='/static/img/profile/${item.iuser}/${item.mainimg}' 
-            onerror='this.error=null;this.src="/static/img/profile/defaultProfileImg_100.png"'>`;
+            onerror='this.error=null;this.src="/static/img/profile/defaultProfileimg.png"'>`;
 
         divTop.innerHTML = `
             <div class="d-flex flex-column justify-content-center">

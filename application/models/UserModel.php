@@ -27,22 +27,17 @@ class UserModel extends Model {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
-    
-    public function selUserByIuser(&$param) {
-        $sql = "SELECT iuser, email, nm, cmt, mainimg, regdt 
-                FROM t_user
-                WHERE iuser = :iuser";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(":iuser", $param["iuser"]);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_OBJ);
-    }
 
-    public function selUserByifeed(&$param) {
-        $sql = "SELECT count(ifeed) FROM t_feed 
-                WHERE iuser = :iuser";
+    public function selUserProfile(&$param) {
+        $feediuser = $param["feediuser"];
+        $loginiuser = $param["loginiuser"];
+        $sql = "SELECT iuser, email, nm, cmt, mainimg,
+                (SELECT COUNT(ifeed) FROM t_feed WHERE iuser = {$feediuser}) AS feedcnt,
+                (SELECT COUNT(fromiuser) FROM t_user_follow WHERE fromiuser = {$feediuser} AND toiuser = {$loginiuser}) AS youme,
+                (SELECT COUNT(fromiuser) FROM t_user_follow WHERE fromiuser = {$loginiuser} AND toiuser = {$feediuser}) AS meyou
+                FROM t_user
+                WHERE iuser = {$feediuser}";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(":iuser", $param["iuser"]);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
