@@ -12,7 +12,6 @@ const feedObj = {
                 this.containerElem.appendChild(divItem);
             });
         }
-        
         if(this.swiper !== null) { this.swiper = null; }
         this.swiper = new Swiper('.swiper', {
             navigation: {
