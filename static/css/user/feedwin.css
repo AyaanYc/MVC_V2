@@ -1,0 +1,35 @@
+#newProfileModalContent{
+    border-radius: 15px;
+    width: 400px;
+    text-align: center;
+}
+.modal-title {
+    padding: 10px;
+    font-weight: bold;
+}
+.modal-body{
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+.modal-body button{
+    text-align: center;
+    padding: 12px;
+    display: block;
+    background-color: #fff;
+}
+.modal-body button:not(:last-child) {
+    border-bottom: 1px solid #EBEDF0;
+}
+.modal-body button:nth-child(1){
+    /* border-top: 1px solid #ccc; */
+    color: blue;
+}
+.modal-body button:nth-child(2){
+    color: red;
+    font-weight: bold;
+}
+.modal-body button:nth-child(3){
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
