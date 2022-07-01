@@ -37,4 +37,13 @@ class UserModel extends Model {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
+    public function selUserByifeed(&$param) {
+        $sql = "SELECT count(ifeed) FROM t_feed 
+                WHERE iuser = :iuser";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(":iuser", $param["iuser"]);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
 }

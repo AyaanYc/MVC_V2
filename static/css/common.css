@@ -56,5 +56,5 @@ table { border-collapse: collapse; border-spacing: 0; }
 .modal_close_parent { display: flex; justify-content: flex-end; padding: 40px 60px; }
 .modal_close { color: white; font-size: 50px; cursor: pointer; }
 .profile { object-fit: cover; border-radius: 50%; }
-
 .scroll_smooth { scroll-behavior: smooth; }
+
