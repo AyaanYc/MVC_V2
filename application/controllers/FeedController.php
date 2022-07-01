@@ -77,7 +77,7 @@ class FeedController extends Controller {
                 return $list;
         }
     }
-    public function fav()
+    public function fav()//좋아요기능
     {
         $urlPaths = getUrlPaths();
         if (!isset($urlPaths[2])) {
