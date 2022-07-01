@@ -4,7 +4,7 @@ function getFeedList() {
     const param = {
         page: feedObj.currentPage++
     }
-    fetch('/feed/rest' + encodeQueryString(param))
+    fetch('/feed/rest' + encodeQueryString(param))// feed/rset?page=n
     .then(res => res.json())
     .then(list => {                
         feedObj.makeFeedList(list);                

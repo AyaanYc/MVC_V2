@@ -84,7 +84,7 @@ const feedObj = {
                 imgbox.className = "modal-img pointer d-flex justify-content-center align-items-center";
                 imgbox.innerHTML = `
                     <div class="modal-dialog">
-                        <img class="w300" src=${img.src}>
+                        <img class="w500" src=${img.src}>
                     </div>`
                     imgbox.addEventListener("click",()=>{
                         imgbox.remove();
@@ -188,7 +188,7 @@ function moveToFeedWin(iuser) {
 }
 
 
-(function() {
+(function() { //피드등록
     const btnNewFeedModal = document.querySelector('#btnNewFeedModal');
     if(btnNewFeedModal) {
         const modal = document.querySelector('#newFeedModal');
