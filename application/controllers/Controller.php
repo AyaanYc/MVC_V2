@@ -2,6 +2,7 @@
 namespace application\controllers;
 
 class Controller {    
+    protected $ctx;
     protected $model;
     private static $needLoginUrlArr = [
         "feed", "user/feedwin"
@@ -14,9 +15,9 @@ class Controller {
         $urlPaths = getUrl();
         foreach(static::$needLoginUrlArr as $url) {
             if(strpos( $urlPaths, $url) === 0 && !isset($_SESSION[_LOGINUSER])) {
-                $this->getView("redirect:/user/signin");
                 echo "권한이 없습니다.";
                 exit();// 로그인을 바로 안하면
+                $this->getView("redirect:/user/signin");
             }
         }
 
@@ -34,7 +35,8 @@ class Controller {
             echo json_encode($view);// 배열&객체가 넘어온다면 json형식의문자열로 변환
         }        
     }
-    private function chkLoginUrl() {
+
+    private function getModel($key) {
 
     }
     

@@ -1,4 +1,5 @@
-<div id="gData" data-toiuser="<?=$this->data->iuser?>"></div>
+<div id="gData" data-toiuser="<?=$this->data->iuser?>" 
+data-follower="<?=$this->data->follower?>"></div>
 <div class="d-flex flex-column align-items-center">
     <div class="size_box_100"></div>
     <div class="w100p_mw614">
@@ -34,14 +35,18 @@
                 </div> 
                 <div class="d-flex flex-row">
                     <div class="flex-grow1 me-3">게시물 <span class="bold"><?=$this->data->feedcnt?></span></div>
-                    <div class="flex-grow1 me-3">팔로워 <span class="bold"><?=$this->data->follow?></span></div>
-                    <div class="flex-grow1">팔로우 <span class="bold"><?=$this->data->folloing?></span></div>
+                    <div class="flex-grow1 me-3">팔로워 <span class="bold follower"><?=$this->data->follower?></span></div>
+                    <div class="flex-grow1">팔로우 <span class="bold"><?=$this->data->follow?></span></div>
                 </div>
                 <div class="bold"><?=$this->data->nm?></div>
                 <div><?=$this->data->cmt?></div>
             </div>
         </div>
+        <div id="item_container"></div>
     </div>
+    <div class="loading d-none"><img src="/static/img/loading.gif"></div>
+
+<!-- 프로필사진바꾸기 -->
     <div class="modal fade" id="newProfileModal" tabindex="-1" aria-labelledby="newProfileModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered justify-content-center">
             <div class="modal-content d-flex justify-content-center" id="newProfileModalContent">

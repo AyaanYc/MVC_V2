@@ -9,7 +9,7 @@ class Application{
     
     public $controller;
     public $action;
-    private static $modelList = [];
+    private static $modelList = [];//배열에담아서 스테틱메모리에 넣어서 한번만만들고 계속 돌려씀
 
     public function __construct() {        
         $urlPaths = getUrlPaths();//1,2차주소값 배열
@@ -21,13 +21,17 @@ class Application{
             exit();
         }
 
-        if(!in_array($controller, static::$modelList)) {//1차주소값이 modelList배열에 없으면 true
-            $modelName = 'application\models\\' . $controller . 'model';//쿼리문
-            static::$modelList[$controller] = new $modelName();//$modelList[1차주소값]= 1차주소값Model객체
-        }
-
         $controllerName = 'application\controllers\\' . $controller . 'controller';                
-        $model = static::$modelList[$controller];//쿼리객체
-        new $controllerName($action, $model);//1차주소값controller(2차주소값,디비커넥트)
-    }
+        $model = $this->getModel($controller);//쿼리객체
+        new $controllerName($action, $model);//$action은 1차주소값 $model은 1차주소값model
+    }// 1차주소값controller(1차주소값,1차주소값model)
+
+    public static function getModel($key) {
+        if(!in_array($key, static::$modelList)) {
+            $modelName = 'application\models\\' . $key . 'model';
+            static::$modelList[$key] = new $modelName();
+        }
+        return static::$modelList[$key];
+    }//있으면 만들어서주고 없으면 만들어놧던걸 줌
 }
+
