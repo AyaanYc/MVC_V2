@@ -1,6 +1,6 @@
 <?php
     function getJson() {
-        return json_decode(file_get_contents('php://input'), true);
+        return json_decode(file_get_contents('php://input'), true);//post로 json객체 보낸걸 배열로 받음
     }
 
     function getParam($key) {
