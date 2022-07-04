@@ -14,7 +14,7 @@ const feedObj = {
                 <img src="${src}" class="profile w24 pointer">                
             </div>
             <div class="d-flex flex-row">
-                <div class="pointer me-2">${item.writer} - ${getDateTimeInfo(item.regdt)}</div>
+                <div class="pointer me-2">${item.writer} - <span class="rem0_8">${getDateTimeInfo(item.regdt)}</span></div>
                 <div>${item.cmt}</div>
             </div>
         `;
@@ -189,11 +189,11 @@ const feedObj = {
             if(item.cmt.ismore === 1) {
                 const divMoreCmt = document.createElement('div');
                 divCmt.appendChild(divMoreCmt);
-                divMoreCmt.className = 'ms-3';
+                divMoreCmt.className = 'ms-3 mb-3';
 
                 const spanMoreCmt = document.createElement('span');
                 divMoreCmt.appendChild(spanMoreCmt);
-                spanMoreCmt.className = 'pointer p-3';
+                spanMoreCmt.className = 'pointer rem0_9 c_lightgray';
                 spanMoreCmt.innerText = '댓글 더보기..';
                 spanMoreCmt.addEventListener('click', e => {
 
