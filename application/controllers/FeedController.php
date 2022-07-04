@@ -1,6 +1,8 @@
 <?php
 namespace application\controllers;
 
+use application\libs\Application;
+
 class FeedController extends Controller {
     public function index() {
         $this->addAttribute(_MAIN, $this->getView("feed/index.php"));
@@ -73,6 +75,8 @@ class FeedController extends Controller {
                 foreach($list as $item) {
                     $imgs = $this->model->selFeedImgList($item);
                     $item->imgList = $imgs;
+                    $param2 = ["ifeed" => $item->ifeed];
+                    $item->cmt = Application::getModel("feedcmt")->selFeedCmt($param2);
                 }
                 return $list;
         }

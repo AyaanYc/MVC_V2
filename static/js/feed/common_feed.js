@@ -4,7 +4,22 @@ const feedObj = {
     currentPage: 1,
     swiper: null,
     loadingElem: document.querySelector('.loading'),
-    containerElem: document.querySelector('#item_container'),    
+    containerElem: document.querySelector('#item_container'), 
+    makeCmtItem: function(item) {
+        const divCmtItemContainer = document.createElement('div');
+        divCmtItemContainer.className = 'd-flex flex-row align-items-center mb-2';
+        const src = '/static/img/profile/' + (item.writerimg ? `${item.iuser}/${item.writerimg}` : 'defaultProfileImg_100.png');
+        divCmtItemContainer.innerHTML = `
+            <div class="circleimg h24 w24 me-1">
+                <img src="${src}" class="profile w24 pointer">                
+            </div>
+            <div class="d-flex flex-row">
+                <div class="pointer me-2">${item.writer} - ${getDateTimeInfo(item.regdt)}</div>
+                <div>${item.cmt}</div>
+            </div>
+        `;
+        return divCmtItemContainer;
+    }, 
     makeFeedList: function(list) {//item을 받아서 리스트(div)에 추가
         if(list.length !== 0) {
             list.forEach(item => {
@@ -27,7 +42,7 @@ const feedObj = {
         this.hideLoading();
     },
     makeFeedItem: function(item) {//item을 만들어서 return
-        console.log(item);
+        // console.log(item);
         //리스트부모
         const divContainer = document.createElement('div');
         divContainer.className = 'item mt-3 mb-3';
@@ -103,7 +118,7 @@ const feedObj = {
         const heartIcon = document.createElement('i');
         divBtns.appendChild(heartIcon);
         heartIcon.className = 'fa-heart pointer rem1_5 me-3';
-        heartIcon.classList.add(item.isFav === 1 ? 'fas' : 'far');
+        heartIcon.classList.add(item.isFav === 1 ? 'fas' : 'far');//item은 rest에있는 각 객체
         heartIcon.addEventListener('click', e => {
             
             let method = 'POST';
@@ -161,10 +176,32 @@ const feedObj = {
 
         //댓글
         const divCmtList = document.createElement('div');
-        divContainer.appendChild(divCmtList);
-
+        divContainer.appendChild(divCmtList);      
+        divCmtList.className = 'ms-3';
+        
         const divCmt = document.createElement('div');
-        divContainer.appendChild(divCmt);                  
+        divContainer.appendChild(divCmt);   
+
+        if(item.cmt) {
+            const divCmtItem = this.makeCmtItem(item.cmt);
+            divCmtList.appendChild(divCmtItem);
+
+            if(item.cmt.ismore === 1) {
+                const divMoreCmt = document.createElement('div');
+                divCmt.appendChild(divMoreCmt);
+                divMoreCmt.className = 'ms-3';
+
+                const spanMoreCmt = document.createElement('span');
+                divMoreCmt.appendChild(spanMoreCmt);
+                spanMoreCmt.className = 'pointer p-3';
+                spanMoreCmt.innerText = '댓글 더보기..';
+                spanMoreCmt.addEventListener('click', e => {
+
+                });
+
+            }
+        }
+        
         const divCmtForm = document.createElement('div');
         divCmtForm.className = 'd-flex flex-row';     
         divCmt.appendChild(divCmtForm);
@@ -173,6 +210,25 @@ const feedObj = {
             <input type="text" class="flex-grow-1 my_input back_color p-2" placeholder="댓글을 입력하세요...">
             <button type="button" class="btn btn-outline-primary">등록</button>
         `;
+        const inputCmt = divCmtForm.querySelector('input');
+        const btnCmtReg = divCmtForm.querySelector('button');
+        btnCmtReg.addEventListener('click', e => {
+            const param = {
+                ifeed: item.ifeed,
+                cmt: inputCmt.value
+            }
+            fetch(`/feedCmt/index`, {
+                method: 'POST',
+                body: JSON.stringify(param)
+            }).then(res => res.json())
+            .then(res => {      
+                console.log(res);              
+                if(res.result) {
+                    inputCmt.value = '';
+                    //댓글 공간에 댓글 내용 추가
+                }
+            })
+        })
 
         return divContainer;
     },
