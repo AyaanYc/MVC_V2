@@ -55,4 +55,20 @@ class UserController extends Controller {
         $this->addAttribute(_MAIN, $this->getView("user/feedwin.php"));
         return "template/t1.php"; 
     }
+
+    public function follow() {        
+        $param = [
+            "fromiuser" => getIuser()
+        ];
+
+        switch(getMethod()) {
+            case _POST:                            
+                $json = getJson();
+                $param["toiuser"] = $json["toiuser"];    
+                return [_RESULT => $this->model->insUserFollow($param)];
+            case _DELETE:                
+                $param["toiuser"] = $_GET["toiuser"];    
+                return [_RESULT => $this->model->delUserFollow($param)];
+        }
+    }
 }
