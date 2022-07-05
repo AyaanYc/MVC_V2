@@ -5,18 +5,6 @@ const feedObj = {
     swiper: null,
     loadingElem: document.querySelector('.loading'),
     containerElem: document.querySelector('#item_container'), 
-    insFeedCmt: function(param, inputCmt, divCmtList, spanMoreCmt){
-        fetch(`/feedCmt/index`, {//포스트방식으로 백엔드에 json형식으로 변환하여 전송
-            method: 'POST',
-            body: JSON.stringify(param)
-        }).then(res => res.json())
-        .then(res => {      
-            if(res.result) {
-                inputCmt.value = '';
-                this.getFeedCmtList(param.ifeed, divCmtList, spanMoreCmt);
-            }
-        })
-    },
     getFeedCmtList: function(ifeed, divCmtList, spanMoreCmt) {
         fetch(`/feedCmt/index?ifeed=${ifeed}`)
         .then(res => res.json())
@@ -207,7 +195,6 @@ const feedObj = {
         //댓글더보기 댓글등록창부모
         const divCmt = document.createElement('div');
         divContainer.appendChild(divCmt);   
-
         const spanMoreCmt = document.createElement('span');//댓글더보기
 
         if(item.cmt) {
@@ -238,6 +225,11 @@ const feedObj = {
         `;
         //적을댓글 내용과 버튼선택
         const inputCmt = divCmtForm.querySelector('input');
+        inputCmt.addEventListener('keyup', (e) => {
+            if(e.key === 'Enter') {
+                btnCmtReg.click();
+            }
+        });
         const btnCmtReg = divCmtForm.querySelector('button');
         //댓글등록버튼을 누르면 
         btnCmtReg.addEventListener('click', e => {
@@ -245,8 +237,21 @@ const feedObj = {
                 ifeed: item.ifeed,
                 cmt: inputCmt.value
             }
-            this.insFeedCmt(param, inputCmt, divCmtList, spanMoreCmt);
+            fetch(`/feedCmt/index`, {//포스트방식으로 백엔드에 json형식으로 변환하여 전송
+                method: 'POST',
+                body: JSON.stringify(param)
+            })
+            .then(res => res.json())
+            .then(res => {      
+                console.log(res);              
+                if(res.result) {
+                    inputCmt.value = '';
+                    //댓글 공간에 댓글 내용 추가
+                    this.getFeedCmtList(item.ifeed, divCmtList, spanMoreCmt);
+                }
+            });
         })
+
 
         return divContainer;
     },
