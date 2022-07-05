@@ -9,6 +9,10 @@ class FeedCmtController extends Controller {
                 $json = getJson();//post로 날라온 json데이터를 배열로받음
                 $json['iuser'] = getIuser();//세션값만 따로 받아옴
                 return [_RESULT => $this->model->insFeedCmt($json)];
+            case _GET:
+                $ifeed = isset($_GET["ifeed"]) ? intval($_GET["ifeed"]) : 0;
+                $param = ["ifeed" => $ifeed];
+                return $this->model->selFeedCmtList($param);
         }
     }
 }

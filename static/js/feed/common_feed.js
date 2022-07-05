@@ -5,6 +5,32 @@ const feedObj = {
     swiper: null,
     loadingElem: document.querySelector('.loading'),
     containerElem: document.querySelector('#item_container'), 
+    insFeedCmt: function(param, inputCmt, divCmtList, spanMoreCmt){
+        fetch(`/feedCmt/index`, {//포스트방식으로 백엔드에 json형식으로 변환하여 전송
+            method: 'POST',
+            body: JSON.stringify(param)
+        }).then(res => res.json())
+        .then(res => {      
+            if(res.result) {
+                inputCmt.value = '';
+                this.getFeedCmtList(param.ifeed, divCmtList, spanMoreCmt);
+            }
+        })
+    },
+    getFeedCmtList: function(ifeed, divCmtList, spanMoreCmt) {
+        fetch(`/feedCmt/index?ifeed=${ifeed}`)
+        .then(res => res.json())
+        .then(res => {
+            if(res && res.length > 0) {
+                if(spanMoreCmt) { spanMoreCmt.remove(); }
+                divCmtList.innerHTML = null;
+                res.forEach(item => {
+                    const divCmtItem = this.makeCmtItem(item);
+                    divCmtList.appendChild(divCmtItem);
+                })
+            }
+        });
+    },
     makeCmtItem: function(item) {
         const divCmtItemContainer = document.createElement('div');
         divCmtItemContainer.className = 'd-flex flex-row align-items-center mb-2';
@@ -182,6 +208,8 @@ const feedObj = {
         const divCmt = document.createElement('div');
         divContainer.appendChild(divCmt);   
 
+        const spanMoreCmt = document.createElement('span');//댓글더보기
+
         if(item.cmt) {
             const divCmtItem = this.makeCmtItem(item.cmt);//보이는 댓글내용(사진,시간,내용)
             divCmtList.appendChild(divCmtItem);
@@ -191,11 +219,11 @@ const feedObj = {
                 divCmt.appendChild(divMoreCmt);
                 divMoreCmt.className = 'ms-3 mb-3';
 
-                const spanMoreCmt = document.createElement('span');//댓글더보기
                 divMoreCmt.appendChild(spanMoreCmt);
                 spanMoreCmt.className = 'pointer rem0_9 c_lightgray';
                 spanMoreCmt.innerText = '댓글 더보기..';
                 spanMoreCmt.addEventListener('click', e => {
+                    this.getFeedCmtList(item.ifeed, divCmtList, spanMoreCmt);//댓글리스트 가져오기
                 });
             }
         }
@@ -217,17 +245,7 @@ const feedObj = {
                 ifeed: item.ifeed,
                 cmt: inputCmt.value
             }
-            fetch(`/feedCmt/index`, {//포스트방식으로 백엔드에 json형식으로 변환하여 전송
-                method: 'POST',
-                body: JSON.stringify(param)
-            }).then(res => res.json())
-            .then(res => {      
-                console.log(res);              
-                if(res.result) {
-                    inputCmt.value = '';
-                    //댓글 공간에 댓글 내용 추가
-                }
-            })
+            this.insFeedCmt(param, inputCmt, divCmtList, spanMoreCmt);
         })
 
         return divContainer;
