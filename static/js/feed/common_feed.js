@@ -174,50 +174,50 @@ const feedObj = {
             divCtnt.className = 'itemCtnt p-3';
         }
 
-        //댓글
+        //보이는 댓글 부모div
         const divCmtList = document.createElement('div');
         divContainer.appendChild(divCmtList);      
         divCmtList.className = 'ms-3';
-        
+        //댓글더보기 댓글등록창부모
         const divCmt = document.createElement('div');
         divContainer.appendChild(divCmt);   
 
         if(item.cmt) {
-            const divCmtItem = this.makeCmtItem(item.cmt);
+            const divCmtItem = this.makeCmtItem(item.cmt);//보이는 댓글내용(사진,시간,내용)
             divCmtList.appendChild(divCmtItem);
 
-            if(item.cmt.ismore === 1) {
-                const divMoreCmt = document.createElement('div');
+            if(item.cmt.ismore === 1) {//댓글이 2개이상이면
+                const divMoreCmt = document.createElement('div');//댓글더보기 div
                 divCmt.appendChild(divMoreCmt);
                 divMoreCmt.className = 'ms-3 mb-3';
 
-                const spanMoreCmt = document.createElement('span');
+                const spanMoreCmt = document.createElement('span');//댓글더보기
                 divMoreCmt.appendChild(spanMoreCmt);
                 spanMoreCmt.className = 'pointer rem0_9 c_lightgray';
                 spanMoreCmt.innerText = '댓글 더보기..';
                 spanMoreCmt.addEventListener('click', e => {
-
                 });
-
             }
         }
-        
+        //댓글등록창 부모div
         const divCmtForm = document.createElement('div');
         divCmtForm.className = 'd-flex flex-row';     
         divCmt.appendChild(divCmtForm);
-
+        //댓글등록창
         divCmtForm.innerHTML = `
             <input type="text" class="flex-grow-1 my_input back_color p-2" placeholder="댓글을 입력하세요...">
             <button type="button" class="btn btn-outline-primary">등록</button>
         `;
+        //적을댓글 내용과 버튼선택
         const inputCmt = divCmtForm.querySelector('input');
         const btnCmtReg = divCmtForm.querySelector('button');
+        //댓글등록버튼을 누르면 
         btnCmtReg.addEventListener('click', e => {
             const param = {
                 ifeed: item.ifeed,
                 cmt: inputCmt.value
             }
-            fetch(`/feedCmt/index`, {
+            fetch(`/feedCmt/index`, {//포스트방식으로 백엔드에 json형식으로 변환하여 전송
                 method: 'POST',
                 body: JSON.stringify(param)
             }).then(res => res.json())
