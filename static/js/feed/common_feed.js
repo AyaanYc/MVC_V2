@@ -3,8 +3,21 @@ const feedObj = {
     itemLength: 0,
     currentPage: 1,
     swiper: null,
+    refreshSwipe: function() {
+        if(this.swiper !== null) { this.swiper = null; }
+        this.swiper = new Swiper('.swiper', {
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+            },
+            pagination: { el: '.swiper-pagination' },
+            allowTouchMove: false,
+            direction: 'horizontal',
+            loop: false
+        });
+    },
     loadingElem: document.querySelector('.loading'),
-    containerElem: document.querySelector('#item_container'), 
+    containerElem: document.querySelector('#item_container'),
     getFeedCmtList: function(ifeed, divCmtList, spanMoreCmt) {
         fetch(`/feedCmt/index?ifeed=${ifeed}`)
         .then(res => res.json())
@@ -25,10 +38,10 @@ const feedObj = {
         const src = '/static/img/profile/' + (item.writerimg ? `${item.iuser}/${item.writerimg}` : 'defaultProfileImg_100.png');
         divCmtItemContainer.innerHTML = `
             <div class="circleimg h24 w24 me-1">
-                <img src="${src}" class="profile w24 pointer">                
+                <img src="${src}" class="profile w24 pointer" onclick="moveToFeedWin(${item.iuser})">               
             </div>
             <div class="d-flex flex-row">
-                <div class="pointer me-2">${item.writer} - <span class="rem0_8">${getDateTimeInfo(item.regdt)}</span></div>
+                <div class="me-2">${item.writer} - <span class="rem0_8">${getDateTimeInfo(item.regdt)}</span></div>
                 <div>${item.cmt}</div>
             </div>
         `;
@@ -41,18 +54,7 @@ const feedObj = {
                 this.containerElem.appendChild(divItem);
             });
         }
-        if(this.swiper !== null) { this.swiper = null; }
-        this.swiper = new Swiper('.swiper', {
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev'
-            },
-            pagination: { el: '.swiper-pagination' },
-            allowTouchMove: false,
-            direction: 'horizontal',
-            loop: false
-        });
-
+        this.refreshSwipe();
         this.hideLoading();
     },
     makeFeedItem: function(item) {//item을 만들어서 return
@@ -247,7 +249,7 @@ const feedObj = {
                 if(res.result) {
                     inputCmt.value = '';
                     //댓글 공간에 댓글 내용 추가
-                    this.getFeedCmtList(item.ifeed, divCmtList, spanMoreCmt);
+                    this.getFeedCmtList(param.ifeed, divCmtList, spanMoreCmt);
                 }
             });
         })
@@ -319,12 +321,12 @@ function moveToFeedWin(iuser) {
                     }).then(res => res.json())
                         .then(myJson => {
                             console.log(myJson);
-
-                            if(myJson.result) {                                
+                            if(myJson) {                                
                                 btnClose.click();
-                            }// if(feedObj && myJson.result) { // 객체와 객체가 있다면
-                            //     feedObj.refreshList(); //메소드호출(현재페이지를 1로바꾸고 공간초기화, 새로추가된것을 넣음 common_feed.js)
-                            // }
+                                const feedItem = feedObj.makeFeedItem(myJson);
+                                feedObj.containerElem.prepend(feedItem);
+                                feedObj.refreshSwipe();
+                            }
                         });
                         
                 });
