@@ -1,4 +1,4 @@
-<div id="gData" data-toiuser="<?=$this->data->iuser?>" 
+<div id="lData" data-toiuser="<?=$this->data->iuser?>" 
 data-follower="<?=$this->data->followerCnt?>"></div>
 <div class="d-flex flex-column align-items-center">
     <div class="size_box_100"></div>

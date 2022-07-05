@@ -19,7 +19,7 @@ function getFeedList() {
 getFeedList();
 
 (function() {
-    const gData = document.querySelector('#gData');
+    const lData = document.querySelector('#lData');
 
     const btnFollow = document.querySelector('#btnFollow');
 
@@ -29,7 +29,7 @@ getFeedList();
     if(btnFollow) {
         btnFollow.addEventListener('click', function() {
             const param = {
-                toiuser: parseInt(gData.dataset.toiuser),
+                toiuser: parseInt(lData.dataset.toiuser)
             };
 
             console.log(param);//toiuser
