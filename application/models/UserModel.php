@@ -76,7 +76,6 @@ class UserModel extends Model {
                 FROM t_feed A
                 INNER JOIN t_user C
                 ON A.iuser = C.iuser
-                AND C.iuser = :toiuser  --where절 효과 특정사람의 피드들만 보기위해서
                 LEFT JOIN  
                         (
                             SELECT ifeed, COUNT(ifeed) AS cnt, iuser
@@ -88,9 +87,10 @@ class UserModel extends Model {
                         (
                             SELECT ifeed
                             FROM   t_feed_fav
-                            WHERE iuser = :loginiuser -- 로그인한 사람
+                            WHERE iuser = :loginiuser 
                         ) F
                     ON A.ifeed = F.ifeed
+                WHERE C.iuser = :toiuser
                 ORDER BY A.ifeed DESC
                 LIMIT :startIdx, :feedItemCnt";
         $stmt = $this->pdo->prepare($sql);        
