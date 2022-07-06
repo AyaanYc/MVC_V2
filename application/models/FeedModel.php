@@ -28,7 +28,7 @@ class FeedModel extends Model {
         return $stmt->rowCount(); //영향을미친 레코드(행) 숫자 1
     }
 
-    public function selFeedList(&$param) {
+    public function selFeedList(&$param) { // 메인페이지 피드리스트
         $sql = "SELECT A.ifeed, a.location, a.ctnt, a.iuser, a.regdt
                         , c.nm AS writer, c.mainimg
                         , IFNULL(e.cnt, 0) AS favCnt 
@@ -60,7 +60,7 @@ class FeedModel extends Model {
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function selFeedAfterReg(&$param) {//나중에등록한 피드
+    public function selFeedAfterReg(&$param) {// 나중에등록한 피드
         $sql = "SELECT A.ifeed, A.location, A.ctnt, A.iuser, A.regdt
                     , C.nm AS writer, C.mainimg
                     , 0 AS favCnt
@@ -85,7 +85,7 @@ class FeedModel extends Model {
     }
 
     //-----------------------------------Fav----------------------------//
-    public function insFeedFav(&$param)
+    public function insFeedFav(&$param) // 좋아요입력
     {
         $sql = "INSERT into t_feed_fav 
                 (ifeed , iuser) 
@@ -98,7 +98,7 @@ class FeedModel extends Model {
         return $stmt->rowCount();
     }
 
-    public function delFeedFav(&$param)
+    public function delFeedFav(&$param) // 좋아요취소
     {
         $sql = "DELETE from t_feed_fav 
                 where ifeed = :ifeed and iuser = :iuser";

@@ -72,10 +72,10 @@ class UserModel extends Model {
         $sql = "SELECT A.ifeed, a.location, a.ctnt, a.iuser, a.regdt
                         , c.nm AS writer, c.mainimg
                         , IFNULL(e.cnt, 0) AS favCnt
-                        ,if(F.ifeed IS NULL, 0, 1) AS isFav
+                        ,if(F.ifeed IS NULL, 0, 1) AS isFav 
                 FROM t_feed A
                 INNER JOIN t_user C
-                ON A.iuser = C.iuser
+                ON A.iuser = C.iuser 
                 LEFT JOIN  
                         (
                             SELECT ifeed, COUNT(ifeed) AS cnt, iuser
@@ -87,7 +87,7 @@ class UserModel extends Model {
                         (
                             SELECT ifeed
                             FROM   t_feed_fav
-                            WHERE iuser = :loginiuser 
+                            WHERE iuser = :loginiuser
                         ) F
                     ON A.ifeed = F.ifeed
                 WHERE C.iuser = :toiuser
@@ -99,6 +99,6 @@ class UserModel extends Model {
         $stmt->bindValue(":startIdx", $param["startIdx"]);        
         $stmt->bindValue(":feedItemCnt", _FEED_ITEM_CNT);        
         $stmt->execute();     
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);//배열로담아서넘김
     }
 }

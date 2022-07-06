@@ -70,7 +70,7 @@ class UserController extends Controller {
                 "toiuser" => $_GET["iuser"],
                 "loginiuser" => getIuser()
             ];        
-            $list = $this->model->selFeedList($param);
+            $list = $this->model->selFeedList($param);//글쓴이의 피드리스트가 배열,객체로담김
             foreach($list as $item) {                 
                 $param2 = [ "ifeed" => $item->ifeed];
                 $item->imgList = Application::getModel("feed")->selFeedImgList($param2);

@@ -5,7 +5,21 @@ const feedObj = {
     swiper: null,
     getFeedUrl: '',
     iuser: 0,
+    setScrollInfinity: function() {
+        window.addEventListener('scroll', e => {
+            const {
+                scrollTop,
+                scrollHeight,
+                clientHeight
+            } = document.documentElement; // 변수설정 구조분할할당
+
+            if( scrollTop + clientHeight >= scrollHeight -5 && this.itemLength === this.limit) {
+                this.getFeedList();
+            }
+        }, { passive: true });
+    },
     getFeedList: function() {
+        this.itemLength = 0;
         this.showLoading();            
         const param = {
             page: this.currentPage++,        
@@ -13,7 +27,8 @@ const feedObj = {
         }
         fetch(this.getFeedUrl + encodeQueryString(param))
         .then(res => res.json())
-        .then(list => {                
+        .then(list => {          
+            this.itemLength = list.length;      
             this.makeFeedList(list);                
         })
         .catch(e => {
@@ -348,6 +363,7 @@ function moveToFeedWin(iuser) {
                                 const feedItem = feedObj.makeFeedItem(myJson);
                                 feedObj.containerElem.prepend(feedItem);
                                 feedObj.refreshSwipe();
+                                window.scrollTo(0, 0);
                             }
                         });
                         
