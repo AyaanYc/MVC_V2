@@ -1,5 +1,5 @@
 const feedObj = {
-    limit: 20,
+    limit: 10,
     itemLength: 0,
     currentPage: 1,
     swiper: null,
@@ -13,7 +13,7 @@ const feedObj = {
                 clientHeight
             } = document.documentElement; // 변수설정 구조분할할당
 
-            if( scrollTop + clientHeight >= scrollHeight -5 && this.itemLength === this.limit) {
+            if( scrollTop + clientHeight >= scrollHeight -10 && this.itemLength === this.limit) {
                 this.getFeedList();
             }
         }, { passive: true });
@@ -184,9 +184,24 @@ const feedObj = {
                     if(item.isFav === 0) { // 좋아요 취소
                         heartIcon.classList.remove('fas');
                         heartIcon.classList.add('far');
-                    } else { // 좋아요 처리
+                        if(spanFavCnt.innerText=="좋아요 1개"){
+                            divFav.classList.add('d-none');
+                            item.favCnt--;
+                            } else {
+                                spanFavCnt.innerHTML = `좋아요 ${item.favCnt - 1}개`;
+                                item.favCnt--;
+                            }
+                        } else { // 좋아요 처리
                         heartIcon.classList.remove('far');
                         heartIcon.classList.add('fas');
+                        if(divFav.classList.contains('d-none')){
+                            divFav.classList.remove('d-none');
+                            spanFavCnt.innerHTML = `좋아요 ${item.favCnt + 1}개`;
+                            item.favCnt++;
+                            } else {
+                                spanFavCnt.innerHTML = `좋아요 ${item.favCnt + 1}개`;
+                                item.favCnt++;
+                            }
                     }
                 } else {
                     alert('좋아요를 할 수 없습니다.');

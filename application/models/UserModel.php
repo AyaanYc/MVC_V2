@@ -43,6 +43,24 @@ class UserModel extends Model {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
+    public function updUser(&$param) {
+        $sql = "UPDATE t_user
+                SET    moddt = now() ";
+        if(isset($param["mainimg"])) {
+            $mainimg = $param["mainimg"];
+            $sql .= ", mainimg = '{$mainimg}'";
+        }
+        if(isset($param["delMainImg"])) {
+            $sql .= ", mainimg = null";
+        }
+
+        $sql .= " WHERE iuser = :iuser";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(":iuser", $param["iuser"]);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
     //-----------------------------------Follow----------------------------//
     public function insUserFollow(&$param) {
         $sql = "INSERT INTO t_user_follow

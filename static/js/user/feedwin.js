@@ -25,9 +25,8 @@ if(feedObj) {
 
 (function() {
     const lData = document.querySelector('#lData');
-
     const btnFollow = document.querySelector('#btnFollow');
-
+    const btnDelCurrentProfilePic = document.querySelector('#btnDelCurrentProfilePic');
     const follower = document.querySelector('.follower');
     follower.innerHTML = lData.dataset.follower;
     
@@ -77,6 +76,12 @@ if(feedObj) {
                     break;
             }
         });
+    }
+
+    if(btnDelCurrentProfilePic) {
+        btnDelCurrentProfilePic.addEventListener('click', e => {
+            
+        })
     }
 
 })();

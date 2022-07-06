@@ -55,8 +55,8 @@ data-follower="<?=$this->data->followerCnt?>"></div>
                 </div>
                 <div class="modal-body" id="profileModal-body">
                     <button class="pu">사진 업로드</button>
-                    <button class="pu">현재 사진 삭제</button>
-                    <button class="pu">취소</button>
+                    <button id="btnDelCurrentProfilePic" class="pu">현재 사진 삭제</button>
+                    <button class="pu" data-bs-dismiss="modal">취소</button>
                 </div>
             </div>
         </div>

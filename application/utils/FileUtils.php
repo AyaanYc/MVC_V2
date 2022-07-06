@@ -1,4 +1,8 @@
 <?php
+    // function delFile($path) {
+         
+    // }
+
     //확장자리턴해주는함수
     function getExt($fileName) {
         $last_index = mb_strrpos($fileName, ".");
