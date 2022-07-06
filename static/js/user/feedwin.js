@@ -1,22 +1,27 @@
-function getFeedList() {
-    let params = (new URL(location.href)).searchParams;
-    if(!feedObj) { return; }
-    feedObj.showLoading();            
-    const param = {
-        page: feedObj.currentPage++,
-        iuser: params.get('iuser')
-    }
-    fetch('/user/feed' + encodeQueryString(param))
-    .then(res => res.json())
-    .then(list => {                
-        feedObj.makeFeedList(list);                
-    })
-    .catch(e => {
-        console.error(e);
-        feedObj.hideLoading();
-    });
+if(feedObj) { 
+    const url = new URL(location.href);
+    feedObj.iuser = parseInt(url.searchParams.get('iuser'));
+    feedObj.getFeedUrl = '/user/feed';
+    feedObj.getFeedList();
 }
-getFeedList();
+// function getFeedList() {    
+//     if(!feedObj) { return; }
+//     feedObj.showLoading();            
+//     const param = {
+//         page: feedObj.currentPage++,        
+//         iuser: url.searchParams.get('iuser')
+//     }
+//     fetch('/user/feed' + encodeQueryString(param))
+//     .then(res => res.json())
+//     .then(list => {                
+//         feedObj.makeFeedList(list);                
+//     })
+//     .catch(e => {
+//         console.error(e);
+//         feedObj.hideLoading();
+//     });
+// }
+// getFeedList();
 
 (function() {
     const lData = document.querySelector('#lData');

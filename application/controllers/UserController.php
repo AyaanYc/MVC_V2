@@ -72,10 +72,10 @@ class UserController extends Controller {
             ];        
             $list = $this->model->selFeedList($param);
             foreach($list as $item) {                 
-                $param2 = ["ifeed" => $item->ifeed];
+                $param2 = [ "ifeed" => $item->ifeed];
                 $item->imgList = Application::getModel("feed")->selFeedImgList($param2);
                 $item->cmt = Application::getModel("feedcmt")->selFeedCmt($param2);
-            }//                스테틱메소드로 메모리에 올린 feed&feedcmt Model->
+            }//                스테틱메소드로 메모리에 올린 feed&feedcmt Model
             return $list;
         }
     }
