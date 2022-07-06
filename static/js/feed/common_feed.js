@@ -18,7 +18,7 @@ const feedObj = {
     },
     loadingElem: document.querySelector('.loading'),
     containerElem: document.querySelector('#item_container'),
-    getFeedCmtList: function(ifeed, divCmtList, spanMoreCmt) {
+    getFeedCmtList: function(ifeed, divCmtList, spanMoreCmt) {//댓글더보기누르면
         fetch(`/feedCmt/index?ifeed=${ifeed}`)
         .then(res => res.json())
         .then(res => {
@@ -32,7 +32,7 @@ const feedObj = {
             }
         });
     },
-    makeCmtItem: function(item) {
+    makeCmtItem: function(item) {//보이는댓글
         const divCmtItemContainer = document.createElement('div');
         divCmtItemContainer.className = 'd-flex flex-row align-items-center mb-2';
         const src = '/static/img/profile/' + (item.writerimg ? `${item.iuser}/${item.writerimg}` : 'defaultProfileImg_100.png');
