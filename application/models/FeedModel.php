@@ -31,7 +31,7 @@ class FeedModel extends Model {
     public function selFeedList(&$param) {
         $sql = "SELECT A.ifeed, a.location, a.ctnt, a.iuser, a.regdt
                         , c.nm AS writer, c.mainimg
-                        , IFNULL(e.cnt, 0) AS favCnt
+                        , IFNULL(e.cnt, 0) AS favCnt 
                         ,if(F.ifeed IS NULL, 0, 1) AS isFav
                 FROM t_feed A
                 INNER JOIN t_user C

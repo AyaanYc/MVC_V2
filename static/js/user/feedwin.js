@@ -24,7 +24,7 @@ getFeedList();
     const btnFollow = document.querySelector('#btnFollow');
 
     const follower = document.querySelector('.follower');
-    follower.innerHTML = gData.dataset.follower;
+    follower.innerHTML = lData.dataset.follower;
     
     if(btnFollow) {
         btnFollow.addEventListener('click', function() {
