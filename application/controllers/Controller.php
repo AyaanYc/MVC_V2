@@ -16,8 +16,8 @@ class Controller {
         foreach(static::$needLoginUrlArr as $url) {
             if(strpos( $urlPaths, $url) === 0 && !isset($_SESSION[_LOGINUSER])) {
                 echo "권한이 없습니다.";
-                exit();// 로그인을 바로 안하면
                 $this->getView("redirect:/user/signin");
+                exit();// 로그인을 바로 안하면
             }
         }
 

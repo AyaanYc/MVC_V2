@@ -68,10 +68,10 @@ const feedObj = {
     makeCmtItem: function(item) {//보이는댓글
         const divCmtItemContainer = document.createElement('div');
         divCmtItemContainer.className = 'd-flex flex-row align-items-center mb-2';
-        const src = '/static/img/profile/' + (item.writerimg ? `${item.iuser}/${item.writerimg}` : 'defaultProfileImg_100.png');
+        const src = '/static/img/profile/' + (item.writerimg ? `${item.iuser}/${item.writerimg}` : 'defaultProfileimg.png');
         divCmtItemContainer.innerHTML = `
             <div class="circleimg h24 w24 me-1">
-                <img src="${src}" class="profile w24 pointer" onclick="moveToFeedWin(${item.iuser})">               
+                <img src="${src}" class="profile w24 pointer profileimg" onclick="moveToFeedWin(${item.iuser})">               
             </div>
             <div class="d-flex flex-row">
                 <div class="me-2">${item.writer} - <span class="rem0_8">${getDateTimeInfo(item.regdt)}</span></div>
@@ -102,7 +102,7 @@ const feedObj = {
 
         const regDtInfo = getDateTimeInfo(item.regdt);
         divTop.className = 'd-flex flex-row ps-3 pe-3';
-        const writerImg = `<img src='/static/img/profile/${item.iuser}/${item.mainimg}' 
+        const writerImg = `<img class="profileimg" src='/static/img/profile/${item.iuser}/${item.mainimg}' 
             onerror='this.error=null;this.src="/static/img/profile/defaultProfileimg.png"'>`;
 
         divTop.innerHTML = `

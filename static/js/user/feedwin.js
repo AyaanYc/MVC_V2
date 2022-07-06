@@ -27,6 +27,8 @@ if(feedObj) {
     const lData = document.querySelector('#lData');
     const btnFollow = document.querySelector('#btnFollow');
     const btnDelCurrentProfilePic = document.querySelector('#btnDelCurrentProfilePic');
+    const btnUpdCurrentProfilePic = document.querySelector('#btnUpdCurrentProfilePic');
+    const btnProfileImgModalClose = document.querySelector('#btnProfileImgModalClose');
     const follower = document.querySelector('.follower');
     follower.innerHTML = lData.dataset.follower;
     
@@ -80,8 +82,54 @@ if(feedObj) {
 
     if(btnDelCurrentProfilePic) {
         btnDelCurrentProfilePic.addEventListener('click', e => {
-            
+            fetch('/user/profile', { method: 'DELETE' })
+            .then(res => res.json())
+            .then(res => {
+                if(res.result) {
+                    const profileImgList = document.querySelectorAll('.profileimg');
+                    profileImgList.forEach(item => {
+                        item.src = '/static/img/profile/defaultProfileimg.png';
+                    });
+                }
+                btnProfileImgModalClose.click();
+            });
+        });
+    }
+    if(btnUpdCurrentProfilePic) {
+        const formProfile = document.querySelector('#profile');
+        btnUpdCurrentProfilePic.addEventListener('click', e => {
+            formProfile.imgs.click();
         })
+        
+        const profileModal = document.querySelector('#newProfileModal');
+        const profileImgList = document.querySelectorAll('.profileimg');
+
+        if(profileModal){
+            formProfile.imgs.addEventListener('change', function(e) {
+                console.log("formProfile");
+                const files = formProfile.imgs.files[0]//이미지파일
+                const reader = new FileReader();
+                reader.readAsDataURL(files);
+                reader.onload = function () {
+                    profileImgList.forEach((profileImg) => {
+                    profileImg.src = reader.result;
+                    });
+                };
+                const fData = new FormData();//creater element('form')
+                fData.append('img', files)
+                console.log(files);
+                fetch('/user/profile', { 
+                    method: 'POST',
+                    body: fData
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if(res.result){
+                        console.log(res.result);
+                    }
+                });
+            })
+        }
     }
 
 })();

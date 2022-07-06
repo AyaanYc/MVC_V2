@@ -23,7 +23,7 @@
                         <div class="d-inline-flex dropdown">
                             <a href="#" role="button" id="navDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" class="header_profile">
                                 <div class="circleimg h30 w30">
-                                    <img src="/static/img/profile/<?=getMainImgSrc()?>" onerror="this.onerror=null;this.src='/static/img/profile/defaultProfileimg.png'">
+                                    <img class="profileimg" src="/static/img/profile/<?=getMainImgSrc()?>" onerror="this.onerror=null;this.src='/static/img/profile/defaultProfileimg.png'">
                                 </div>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navDropdownMenuLink">

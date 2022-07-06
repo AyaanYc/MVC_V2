@@ -6,7 +6,7 @@ data-follower="<?=$this->data->followerCnt?>"></div>
         <div class="d-flex flex-row">            
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     <div class="circleimg h150 w150 pointer feedwin">
-                        <img data-bs-toggle="modal" data-bs-target="#newProfileModal" src='/static/img/profile/<?=$this->data->iuser?>/<?=$this->data->mainimg?>' onerror='this.error=null;this.src="/static/img/profile/defaultProfileimg.png"'>
+                        <img class="profileimg" data-bs-toggle="modal" data-bs-target="#newProfileModal" src='/static/img/profile/<?=$this->data->iuser?>/<?=$this->data->mainimg?>' onerror='this.error=null;this.src="/static/img/profile/defaultProfileimg.png"'>
                     </div>
                     <?php 
                     // print_r($this->data);
@@ -54,11 +54,14 @@ data-follower="<?=$this->data->followerCnt?>"></div>
                     <h5 class="modal-title">프로필 사진 바꾸기</h5>
                 </div>
                 <div class="modal-body" id="profileModal-body">
-                    <button class="pu">사진 업로드</button>
+                    <button id="btnUpdCurrentProfilePic" class="pu">사진 업로드</button>
                     <button id="btnDelCurrentProfilePic" class="pu">현재 사진 삭제</button>
-                    <button class="pu" data-bs-dismiss="modal">취소</button>
+                    <button id="btnProfileImgModalClose" class="pu" data-bs-dismiss="modal">취소</button>
                 </div>
             </div>
         </div>
+        <form class="d-none" id="profile">
+            <input type="file" accept="image/*" name="imgs" multiple>
+        </form>
     </div>
 </div>

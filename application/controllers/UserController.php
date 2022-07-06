@@ -25,6 +25,7 @@ class UserController extends Controller {
     }
     //회원가입
     public function signup() {
+        $ip_addr = $_SERVER["REMOTE_ADDR"];
         switch(getMethod()) {
             case _GET:
                 return "user/signup.php";
@@ -32,7 +33,8 @@ class UserController extends Controller {
                 $param = [
                     "email" => $_POST["email"],
                     "pw" => $_POST["pw"],
-                    "nm" => $_POST["nm"]
+                    "nm" => $_POST["nm"],
+                    "addr" => $ip_addr
                 ];
                 $param["pw"] = password_hash($param["pw"], PASSWORD_BCRYPT);
                 $this->model->insUser($param);
@@ -112,6 +114,31 @@ class UserController extends Controller {
                             return [_RESULT => 1];
                         }
                     }
+                }
+                return [_RESULT => 0];
+            case _POST:
+                $loginUser = getLoginUser();
+                $saveDirectory = _IMG_PATH . "/profile/" . $loginUser->iuser;
+                if(!is_dir($saveDirectory)) {
+                    mkdir($saveDirectory, 0777, true);
+                }
+                $tempName = $_FILES['img']['tmp_name'];
+                $originFileNm = $_FILES['img']['name'];
+                $randomFileNm = getRandomFileNm($originFileNm);
+                if(move_uploaded_file($tempName, $saveDirectory . "/" . $randomFileNm)) {
+                    $param = [
+                        "iuser" => $loginUser->iuser,
+                        "mainimg" => $randomFileNm
+                    ];
+                    $this->model->updUser($param);
+                    if($loginUser->mainimg) {
+                        $saved_img = $saveDirectory . "/" . $loginUser->mainimg;
+                        if(file_exists($saved_img)) {
+                            unlink($saved_img);
+                        }
+                    }
+                    $loginUser->mainimg = $randomFileNm;
+                    return [_RESULT => 1];
                 }
                 return [_RESULT => 0];
         }

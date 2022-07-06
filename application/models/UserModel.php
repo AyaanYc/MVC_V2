@@ -6,19 +6,22 @@ use PDO;
 //$pdo -> lastInsertId();
 
 class UserModel extends Model {
+    //회원가입
     public function insUser(&$param) {
         $sql = "INSERT INTO t_user
-                ( email, pw, nm ) 
+                ( email, pw, nm, addr ) 
                 VALUES 
-                ( :email, :pw, :nm )";
+                ( :email, :pw, :nm, :addr )";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(":email", $param["email"]);
         $stmt->bindValue(":pw", $param["pw"]);
         $stmt->bindValue(":nm", $param["nm"]);
+        $stmt->bindValue(":addr", $param["addr"]);
         $stmt->execute();
         return $stmt->rowCount();
-
     }
+
+    //로그인
     public function selUser(&$param) {
         $sql = "SELECT * FROM t_user
                 WHERE email = :email";
@@ -28,6 +31,7 @@ class UserModel extends Model {
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
+    //프로필유저 정보
     public function selUserProfile(&$param) {
         $feediuser = $param["feediuser"];
         $loginiuser = $param["loginiuser"];
@@ -44,6 +48,7 @@ class UserModel extends Model {
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
+    //프로필이미지 삭제&업로드
     public function updUser(&$param) {
         $sql = "UPDATE t_user
                 SET    moddt = now() ";
