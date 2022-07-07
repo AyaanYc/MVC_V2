@@ -102,19 +102,10 @@ if(feedObj) {
         })
         
         const profileModal = document.querySelector('#newProfileModal');
-        const profileImgList = document.querySelectorAll('.profileimg');
-
+        
         if(profileModal){
             formProfile.imgs.addEventListener('change', function(e) {
-                console.log("formProfile");
                 const files = formProfile.imgs.files[0]//이미지파일
-                const reader = new FileReader();
-                reader.readAsDataURL(files);
-                reader.onload = function () {
-                    profileImgList.forEach((profileImg) => {
-                    profileImg.src = reader.result;
-                    });
-                };
                 const fData = new FormData();//creater element('form')
                 fData.append('img', files)
                 console.log(files);
@@ -126,6 +117,15 @@ if(feedObj) {
                 .then(res => {
                     if(res.result){
                         console.log(res.result);
+                        const reader = new FileReader();
+                        reader.readAsDataURL(files);
+                        reader.onload = function () {
+                            const profileImgList = document.querySelectorAll('.profileimg');
+                            profileImgList.forEach(profileImg => {
+                            profileImg.src = reader.result;
+                            });
+                        };
+                        btnProfileImgModalClose.click();
                     }
                 });
             })

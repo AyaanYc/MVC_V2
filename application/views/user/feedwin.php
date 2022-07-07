@@ -61,7 +61,7 @@ data-follower="<?=$this->data->followerCnt?>"></div>
             </div>
         </div>
         <form class="d-none" id="profile">
-            <input type="file" accept="image/*" name="imgs" multiple>
+            <input type="file" accept="image/*" name="imgs">
         </form>
     </div>
 </div>
