@@ -29,7 +29,9 @@ if(feedObj) {
     const btnDelCurrentProfilePic = document.querySelector('#btnDelCurrentProfilePic');
     const btnUpdCurrentProfilePic = document.querySelector('#btnUpdCurrentProfilePic');
     const btnProfileImgModalClose = document.querySelector('#btnProfileImgModalClose');
-    const profileImgMod = document.querySelector('#profileImgMod');
+    // const profileImgMod = document.querySelector('#profileImgMod');
+    const formProfile = document.querySelector('#profile');
+
     const follower = document.querySelector('.follower');
     follower.innerHTML = lData.dataset.follower;
     
@@ -97,7 +99,6 @@ if(feedObj) {
         });
     }
     // console.log(profileImgMod.src);
-    // const formProfile = document.querySelector('#profile');
     // if(profileImgMod.src === 'http://localhost/static/img/profile/defaultProfileimg.png'){
     //     profileImgMod.removeAttribute( 'data-bs-target' );
     //     profileImgMod.removeAttribute( 'data-bs-toggle' );
