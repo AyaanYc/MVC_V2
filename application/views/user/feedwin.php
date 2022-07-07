@@ -6,7 +6,9 @@ data-follower="<?=$this->data->followerCnt?>"></div>
         <div class="d-flex flex-row">            
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     <div class="circleimg h150 w150 pointer feedwin">
-                        <img class="profileimg" data-bs-toggle="modal" data-bs-target="#newProfileModal" src='/static/img/profile/<?=$this->data->iuser?>/<?=$this->data->mainimg?>' onerror='this.error=null;this.src="/static/img/profile/defaultProfileimg.png"'>
+                        <img id="profileImgMod" class="profileimg" data-bs-toggle="modal" 
+                         data-bs-target="#newProfileModal" src='/static/img/profile/<?=$this->data->iuser?>/<?=$this->data->mainimg?>' 
+                         onerror='this.error=null;this.src="/static/img/profile/defaultProfileimg.png"'>
                     </div>
                     <?php 
                     // print_r($this->data);
