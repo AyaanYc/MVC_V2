@@ -64,7 +64,7 @@ class FeedController extends Controller {
                 $data->imgList = $this->model->selFeedImgList($param2);
                 return $data;
 
-            case _GET:
+            case _GET: //피드리스트를보여줌
                 $page = 1;
                 if(isset($_GET["page"])) {
                     $page = intval($_GET["page"]);

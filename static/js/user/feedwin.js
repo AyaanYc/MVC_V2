@@ -1,8 +1,8 @@
 if(feedObj) { 
     const url = new URL(location.href);
-    feedObj.iuser = parseInt(url.searchParams.get('iuser'));
+    feedObj.iuser = parseInt(url.searchParams.get('iuser'));//url에들어온 쿼리스트링iuser값
     feedObj.getFeedUrl = '/user/feed';
-    feedObj.getFeedList();
+    feedObj.getFeedList();//글쓴이의 피드리스트를 가져옴
 }
 // function getFeedList() {    
 //     if(!feedObj) { return; }

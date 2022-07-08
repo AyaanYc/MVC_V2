@@ -5,7 +5,7 @@ const feedObj = {
     swiper: null,
     getFeedUrl: '',
     iuser: 0,
-    setScrollInfinity: function() {
+    setScrollInfinity: function() { //인피니티스크롤
         window.addEventListener('scroll', e => {
             const {
                 scrollTop,
@@ -18,7 +18,7 @@ const feedObj = {
             }
         }, { passive: true });
     },
-    getFeedList: function() {
+    getFeedList: function() {//피드리스트를 가져올수있는 메소드 (index.js, feedwin.js)에서 사용
         this.itemLength = 0;
         this.showLoading();            
         const param = {
@@ -36,7 +36,7 @@ const feedObj = {
             this.hideLoading();
         });
     },
-    refreshSwipe: function() {
+    refreshSwipe: function() { //이미지 케러셀작업해주는 메소드 
         if(this.swiper !== null) { this.swiper = null; }
         this.swiper = new Swiper('.swiper', {
             navigation: {
@@ -49,10 +49,10 @@ const feedObj = {
             loop: false
         });
     },
-    loadingElem: document.querySelector('.loading'),
-    containerElem: document.querySelector('#item_container'),
-    getFeedCmtList: function(ifeed, divCmtList, spanMoreCmt) {//댓글더보기누르면
-        fetch(`/feedCmt/index?ifeed=${ifeed}`)
+    loadingElem: document.querySelector('.loading'), //index.php파일에 로딩박스 선택
+    containerElem: document.querySelector('#item_container'),// index.php파일에 메인박스 선택
+    getFeedCmtList: function(ifeed, divCmtList, spanMoreCmt) {//해당 글에 댓글리스트를 불러옴 
+        fetch(`/feedCmt/index?ifeed=${ifeed}`)//feedCmtController에 index메소드 get방식으로 호출
         .then(res => res.json())
         .then(res => {
             if(res && res.length > 0) {
@@ -65,7 +65,7 @@ const feedObj = {
             }
         });
     },
-    makeCmtItem: function(item) {//보이는댓글
+    makeCmtItem: function(item) {//댓글생성메소드
         const divCmtItemContainer = document.createElement('div');
         divCmtItemContainer.className = 'd-flex flex-row align-items-center mb-2';
         const src = '/static/img/profile/' + (item.writerimg ? `${item.iuser}/${item.writerimg}` : 'defaultProfileimg.png');
@@ -118,7 +118,7 @@ const feedObj = {
         const feedwinList = divTop.querySelectorAll('.feedwin');
         feedwinList.forEach(el => {
             el.addEventListener('click', () => {
-                moveToFeedWin(item.iuser);
+                moveToFeedWin(item.iuser);//글쓴이의 프로필로이동
             });
         });
 
@@ -218,6 +218,9 @@ const feedObj = {
         divBtns.appendChild(divDm);
         divDm.className = 'pointer';
         divDm.innerHTML = `<svg aria-label="다이렉트 메시지" class="_8-yf5 " color="#262626" fill="#262626" height="24" role="img" viewBox="0 0 24 24" width="24"><line fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2" x1="22" x2="9.218" y1="3" y2="10.083"></line><polygon fill="none" points="11.698 20.334 22 3.001 2 3.001 9.218 10.084 11.698 20.334" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></polygon></svg>`;
+        divDm.addEventListener('click', e => {
+            location.href = `/dm/index?oppoiuser=${item.iuser}`;
+        })
 
         //좋아요 갯수
         const divFav = document.createElement('div');
@@ -313,7 +316,7 @@ const feedObj = {
 
 
 function moveToFeedWin(iuser) {
-    location.href = `/user/feedwin?iuser=${iuser}`;
+    location.href = `/user/feedwin?iuser=${iuser}`;//글쓴이의 프로필로이동
 }
 
 

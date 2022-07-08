@@ -31,7 +31,7 @@ class Controller {
         if(gettype($view) === "string") {
             require_once $this->getView($view);             
         } else if(gettype($view) === "object" || gettype($view) === "array") {
-            header("Content-Type:application/json");
+            header("Content-Type:application/json");// {key: value}의 형태로 전송
             echo json_encode($view);// 배열&객체가 넘어온다면 json형식의문자열로 변환
         }        
     }

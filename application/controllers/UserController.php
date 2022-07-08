@@ -60,7 +60,8 @@ class UserController extends Controller {
         return "template/t1.php"; 
     }
 
-    public function feed() {
+    //글쓴이의 피드리스트를 리턴
+    public function feed() {//feedwin.js에서 호출
         if(getMethod() === _GET) {    
             $page = 1;
             if(isset($_GET["page"])) {
@@ -82,7 +83,8 @@ class UserController extends Controller {
         }
     }
 
-    public function follow() {        
+    //좋아요 등록,취소
+    public function follow() { 
         $param = [
             "fromiuser" => getIuser()
         ];
@@ -98,7 +100,8 @@ class UserController extends Controller {
         }
     }
 
-    public function profile() {
+    //프로필사진 업로드,삭제
+    public function profile() { 
         switch(getMethod()) {
             case _DELETE:
                 $loginUser = getLoginUser();
