@@ -15,7 +15,7 @@
         return $getUrl !== "" ? explode('/', $getUrl) : "";
     }
 
-    function getMethod() {
+    function getMethod() {// 현재 요청하는 데이터 요청 방식이 GET 이냐 POST 냐를 갈챠 주는 서버 함수 입니다.
         return $_SERVER['REQUEST_METHOD'];
     }
 
