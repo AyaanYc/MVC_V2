@@ -103,7 +103,7 @@ class UserController extends Controller {
     //프로필사진 업로드,삭제
     public function profile() { 
         switch(getMethod()) {
-            case _DELETE:
+            case _DELETE://삭제
                 $loginUser = getLoginUser();
                 if($loginUser) {
                     $path = "static/img/profile/{$loginUser->iuser}/{$loginUser->mainimg}";
@@ -119,7 +119,7 @@ class UserController extends Controller {
                     }
                 }
                 return [_RESULT => 0];
-            case _POST:
+            case _POST://업로드
                 $loginUser = getLoginUser();
                 $saveDirectory = _IMG_PATH . "/profile/" . $loginUser->iuser;
                 if(!is_dir($saveDirectory)) {
